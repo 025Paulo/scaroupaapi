@@ -19,8 +19,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/fornecedor")
+@RequestMapping("/api/v1/fornecedores")
 @RequiredArgsConstructor
+@CrossOrigin
 public class FornecedorController {
 
     private final FornecedorService service;
@@ -43,7 +44,7 @@ public class FornecedorController {
     }
 
     @PostMapping()
-    public ResponseEntity post(FornecedorDTO dto) {
+    public ResponseEntity post(@RequestBody FornecedorDTO dto) {
         try {
             Fornecedor fornecedor = converter(dto);
             Endereco endereco = enderecoService.salvar(fornecedor.getEndereco());
@@ -56,7 +57,7 @@ public class FornecedorController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, FornecedorDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody FornecedorDTO dto) {
         if (!service.getFornecedorById(id).isPresent()) {
             return new ResponseEntity("Fornecedor não encontrado", HttpStatus.NOT_FOUND);
         }

@@ -27,4 +27,9 @@ public class Pedido {
     @ManyToOne
     private Fornecedor fornecedor;
 
+    @ManyToMany
+    @JoinTable(name = "pedido_cliente",
+            joinColumns = @JoinColumn(name = "pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "cliente_id"))
+    private List<Cliente> clientes;
 }

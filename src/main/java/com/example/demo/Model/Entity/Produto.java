@@ -20,8 +20,12 @@ public class Produto
     private Long id;
     private String nome;
 
+    @ManyToOne
+    private Fornecedor fornecedor;
+
     @JsonIgnore
     @OneToMany(mappedBy = "produto")
     private List<Pedido> pedidos;
+
 
 }

@@ -26,5 +26,10 @@ public class Fornecedor extends Pessoa {
     @JsonIgnore
     @OneToMany (mappedBy = "fornecedor")
     private List<Pedido> pedidos;
+
+    @ManyToOne
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
+
 }
 

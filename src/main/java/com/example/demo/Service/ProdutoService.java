@@ -1,7 +1,8 @@
 package com.example.demo.Service;
 
-import com.example.demo.Model.Entity.Pedido;
+import com.example.demo.Model.Entity.Fornecedor;
 import com.example.demo.Model.Entity.Produto;
+import com.example.demo.Model.Repository.FornecedorRepository;
 import com.example.demo.Model.Repository.ProdutoRepository;
 import com.example.demo.api.Exception.RegraNegocioException;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,11 @@ import java.util.Optional;
 public class ProdutoService {
     private ProdutoRepository repository;
 
-    public ProdutoService(ProdutoRepository repository) {
+    private final FornecedorRepository fornecedorRepository;
+
+    public ProdutoService(ProdutoRepository repository, FornecedorRepository fornecedorRepository) {
         this.repository = repository;
+        this.fornecedorRepository = fornecedorRepository;
     }
 
     public List<Produto> getProdutos() {
@@ -36,7 +40,6 @@ public class ProdutoService {
     @Transactional
     public void excluir(Produto produto) {
         Objects.requireNonNull(produto.getId());
-        repository.delete(produto);
     }
 
     public void validar(Produto produto) {

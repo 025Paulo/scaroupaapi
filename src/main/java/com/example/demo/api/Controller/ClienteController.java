@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/clientes")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ClienteController {
 
     private final ClienteService service;
@@ -43,7 +44,7 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity post(ClienteDTO dto) {
+    public ResponseEntity post(@RequestBody ClienteDTO dto) {
         try {
             Cliente cliente = converter(dto);
             Endereco endereco = enderecoService.salvar(cliente.getEndereco());
@@ -56,7 +57,7 @@ public class ClienteController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, ClienteDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id,@RequestBody ClienteDTO dto) {
         if (!service.getClienteById(id).isPresent()) {
             return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
         }

@@ -1,8 +1,10 @@
 package com.example.demo.Model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,4 +26,8 @@ public class Endereco {
     private String cidade;
     private String uf;
     private String cep;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "endereco")
+    private Fornecedor fornecedor;
 }

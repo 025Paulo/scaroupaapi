@@ -16,11 +16,11 @@ import java.util.Optional;
 public class FornecedorService {
 
     private FornecedorRepository repository;
-
     private final PedidoService pedidoService;
 
 
-    public FornecedorService(FornecedorRepository repository, PedidoService pedidoService) {
+
+    public FornecedorService(FornecedorRepository repository, PedidoService pedidoService ) {
         this.repository = repository;
         this.pedidoService = pedidoService;
     }

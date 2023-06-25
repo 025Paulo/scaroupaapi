@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/produtos")
 @RequiredArgsConstructor
 @Api("Api de produtos")
+@CrossOrigin
 public class ProdutoController {
 
     private final ProdutoService service;
@@ -63,7 +64,7 @@ public class ProdutoController {
             @ApiResponse(code = 201, message = "Produto salvo com sucesso"),
             @ApiResponse(code = 400, message = "Erro ao salvar o curso")
     })
-    public ResponseEntity post(ProdutoDTO dto) {
+    public ResponseEntity post(@RequestBody ProdutoDTO dto) {
         try {
             Produto produto = converter(dto);
             produto = service.salvar(produto);
@@ -74,7 +75,7 @@ public class ProdutoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, ProdutoDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id,@RequestBody ProdutoDTO dto) {
         if (!service.getProdutoById(id).isPresent()) {
             return new ResponseEntity("Produto não encontrado", HttpStatus.NOT_FOUND);
         }

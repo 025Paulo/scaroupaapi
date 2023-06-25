@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/pedidos")
 @RequiredArgsConstructor
+@CrossOrigin
 public class PedidoController {
     private final PedidoService service;
     private final ProdutoService produtoService;
@@ -39,7 +40,7 @@ public class PedidoController {
     }
 
     @PostMapping()
-    public ResponseEntity post(PedidoDTO dto) {
+    public ResponseEntity post(@RequestBody PedidoDTO dto) {
         try {
             Pedido pedido = converter(dto);
             pedido = service.salvar(pedido);
@@ -49,7 +50,7 @@ public class PedidoController {
         }
     }
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, PedidoDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id,@RequestBody PedidoDTO dto) {
         if (!service.getPedidoById(id).isPresent()) {
             return new ResponseEntity("Pedido não encontrado", HttpStatus.NOT_FOUND);
         }
